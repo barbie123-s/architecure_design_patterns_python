@@ -4,6 +4,8 @@ import urllib.request
 from datetime import datetime, timedelta
 
 from flask import Flask, jsonify, request
+from data.dict.dict import REQUESTS
+from decorators.request import request
 
 app = Flask(__name__)
 
@@ -43,8 +45,6 @@ ACTIVITY_FOR_API = {
     "active": "very_active",
     "very active": "extra_active",
 }
-
-REQUESTS = {"count": 0, "last_path": None, "last_seconds": None}
 
 
 @app.route("/log", methods=["POST"])
