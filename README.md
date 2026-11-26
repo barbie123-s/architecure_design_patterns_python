@@ -36,7 +36,9 @@ graph TB
         targets[GET targets]
     end
 
-    client --> Handlers
+    client --> reqlog[decorators/request_log.py]
+    reqlog --> Handlers
+    reqlog -->|updates| requests
     getAct ~~~ postAct
     postAct ~~~ postLog
     postLog ~~~ undo
@@ -56,14 +58,14 @@ graph TB
     getCal -->|reads| logs3[logs.json]
     getCal -->|reads| a4[activities.json]
     postUser -->|writes| user1[user.json]
-    stats -->|reads| requests[REQUESTS]
+    stats -->|reads| requests[Requests singleton<br>singleton/requests.py]
     targets -->|reads| user2[user.json]
     targets -->|reads| logs4[logs.json]
     targets -->|reads| a5[activities.json]
     targets --> bands[LIFESTYLE_ACTIVITY]
     bands --> names[ACTIVITY_FOR_API]
     names -->|calls| macros[Macros API]
-    Handlers -->|each call updates| requests
+    
 ```
 
 ## What it does
